@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto de Béisbol - República Dominicana</title>
+    <style>
+        :root {
+            --color-primary: #1e3a8a;
+            --color-primary-light: #2563eb;
+            --color-accent: #dc2626;
+            --color-gold: #f59e0b;
+            --color-bg-light: #f3f4f6;
+            --color-text-dark: #1f2937;
+            --color-text-light: #6b7280;
+            --color-border: #e5e7eb;
+            --color-success: #059669;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--color-text-dark);
+            background-color: #ffffff;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 4px solid var(--color-accent);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.95;
+        }
+
+        .thesis-box {
+            background: rgba(255,255,255,0.1);
+            border-left: 4px solid var(--color-gold);
+            padding: 1.5rem 2rem;
+            margin: 1.5rem auto;
+            max-width: 600px;
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        .thesis-box strong {
+            color: var(--color-gold);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 3rem 2rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        section:nth-child(even) {
+            background-color: var(--color-bg-light);
+        }
+
+        section h2 {
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--color-accent);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        section h3 {
+            color: var(--color-primary-light);
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        section p {
+            color: var(--color-text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.7rem;
+            line-height: 1.8;
+        }
+
+        .key-figures {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .figure-card {
+            background: white;
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .figure-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-color: var(--color-primary);
+        }
+
+        .figure-card h4 {
+            color: var(--color-accent);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .figure-card p {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: white;
+            padding: 2rem 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--color-gold);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 4px solid var(--color-gold);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+            color: var(--color-text-dark);
+        }
+
+        .highlight strong {
+            color: var(--color-primary);
+        }
+
+        .highlight-inline {
+            background-color: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .quote {
+            background: white;
+            border-left: 4px solid var(--color-accent);
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+            font-style: italic;
+            color: var(--color-text-dark);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .quote-author {
+            font-weight: bold;
+            color: var(--color-primary);
+            margin-top: 1rem;
+            font-style: normal;
+        }
+
+        footer {
+            background: var(--color-primary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            border-top: 3px solid var(--color-accent);
+        }
+
+        footer h4 {
+            margin-bottom: 1rem;
+        }
+
+        .references {
+            text-align: left;
+            max-width: 900px;
+            margin: 1.5rem auto;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .references li {
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            nav a {
+                display: block;
+                padding: 0.75rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .key-figures {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            nav {
+                display: none;
+            }
+
+            section {
+                page-break-inside: avoid;
+            }
+        }
+
+        strong {
+            color: var(--color-text-dark);
+        }
+
+        .objective-box {
+            background: #dbeafe;
+            border-left: 4px solid var(--color-primary);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+            color: var(--color-text-dark);
+        }
+
+        .emoji-label {
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+
+        .section-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+            display: block;
+        }
+
+        .image-caption {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        .section-image-centered {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin: 2rem auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#origenes">Orígenes</a></li>
+            <li><a href="#identidad">Identidad</a></li>
+            <li><a href="#economia">Economía</a></li>
+            <li><a href="#global">Global</a></li>
+            <li><a href="#cultural">Cultural</a></li>
+            <li><a href="#conclusiones">Conclusiones</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="inicio">
+        <h1>⚾ El Béisbol en la República Dominicana</h1>
+        <p>Un deporte que trasciende el juego: identidad, historia, economía y orgullo nacional</p>
+        <div class="thesis-box">
+            <strong>Tesis Central:</strong>
+            El béisbol en la República Dominicana es más que un deporte; es un elemento central de la identidad nacional que refleja la historia, el orgullo y los valores culturales del país.
+        </div>
+    </section>
+
+    <div class="container">
+        <section id="introduccion">
+            <h2>1. Introducción</h2>
+            <p>El béisbol en la República Dominicana significa más que solo un deporte y pasatiempo, <strong>es una identidad</strong>. Para miles de jóvenes es una esperanza y una fuente de orgullo. Según Rob Ruck, el béisbol llegó a ser parte del "ADN cultural" del país por su profunda integración en la sociedad dominicana.</p>
+            <p>El propósito de este proyecto es demostrar que el béisbol no solo ocupa un lugar importante en la cultura dominicana, sino que constituye un elemento central en su historia, su economía y su proyección internacional.</p>
+            <div class="objective-box">
+                <span class="emoji-label">🎯</span><strong> Objetivo:</strong> Demostrar que el béisbol es más que un juego; es una fuerza cultural fundamental en la identidad y el destino de la República Dominicana.
+            </div>
+        </section>
+
+        <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/2a9b7cce-1cde-4289-8043-90530c4f2527" alt="Equipo dominicano celebrando en el campo durante el Clásico Mundial de Béisbol" class="section-image-centered">
+        <div class="image-caption">El equipo dominicano celebrando una victoria en el Clásico Mundial de Béisbol</div>
+
+        <div style="margin-bottom: 2rem;"></div>
+
+        <section id="origenes">
+            <h2>2. Los Orígenes del Béisbol en la República Dominicana</h2>
+            <p>De acuerdo con Alan Klein, el deporte llegó a la isla a finales del siglo XIX a través de trabajadores cubanos y marineros estadounidenses. Con el tiempo, se difundió entre jóvenes urbanos, especialmente en Santo Domingo y San Pedro de Macorís.</p>
+            
+            <h3>Desarrollo Temprano</h3>
+            <ul>
+                <li><strong>Finales del siglo XIX:</strong> Introducción del béisbol a través de contactos externos</li>
+                <li><strong>Década de 1910:</strong> Establecimiento de ligas locales organizadas</li>
+                <li><strong>1907:</strong> Fundación del Club Atlético Licey, pilar del deporte dominicano</li>
+            </ul>
+
+            <div class="quote">
+                Este proceso de adopción del béisbol representó una mezcla única entre influencias estadounidenses y la creatividad dominicana, sentando las bases de una identidad deportiva nacional.
+                <div class="quote-author">— Andrew Zimbalist</div>
+            </div>
+
+            <h3>Transición a Pasión Nacional</h3>
+            <p>Rob Ruck explica que para la década de 1910 ya existían ligas locales organizadas, y que el Club Atlético Licey, fundado en 1907, se convirtió rápidamente en un pilar del deporte dominicano. La transformación de una importación extranjera a una pasión nacional ocurrió en menos de tres décadas.</p>
+        </section>
+
+        <section id="identidad">
+            <h2>3. El Béisbol como Reflejo de la Historia y la Identidad Nacional</h2>
+            <p>Durante el siglo XX, el béisbol adquirió un papel central en la construcción de identidad. El régimen de Rafael Trujillo utilizó el deporte como herramienta política y de propaganda, pero también contribuyó a consolidar una identidad nacional en torno al béisbol.</p>
+
+            <h3>Embajadores Culturales</h3>
+            <div class="key-figures">
+                <div class="figure-card">
+                    <h4>Juan Marichal</h4>
+                    <p>Primer dominicano en llegar a Cooperstown. Representó el talento dominicano al mundo y dio orgullo nacional a millones.</p>
+                </div>
+                <div class="figure-card">
+                    <h4>Pedro Martínez</h4>
+                    <p>Fortaleció la narrativa de excelencia dominicana en las Grandes Ligas con su desempeño excepcional.</p>
+                </div>
+                <div class="figure-card">
+                    <h4>David Ortiz</h4>
+                    <p>Símbolo global del talento dominicano e ícono del orgullo nacional en el béisbol internacional.</p>
+                </div>
+            </div>
+
+            <h3>Valores Culturales Reflejados</h3>
+            <ul>
+                <li><strong>Comunidad:</strong> El béisbol une a personas de todas las clases sociales</li>
+                <li><strong>Resiliencia:</strong> Refleja la capacidad de superar adversidades</li>
+                <li><strong>Pasión:</strong> El estilo expresivo y emocional es característicamente dominicano</li>
+            </ul>
+
+            <div class="highlight">
+                <span class="emoji-label">💡</span><strong> Insight Clave:</strong> Las figuras como Juan Marichal actuaron como "embajadores culturales", representando el talento dominicano al mundo y simbolizando el orgullo nacional para millones de personas.
+            </div>
+
+            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/29dad104-0eff-4eb3-90ce-f03614b72a48" alt="Jugadores profesionales de béisbol dominicanos en las Grandes Ligas" class="section-image">
+            <div class="image-caption">Leyendas del béisbol dominicano representando al país en las Grandes Ligas</div>
+        </section>
+
+        <section id="economia">
+            <h2>4. La Economía y la Industria del Béisbol</h2>
+            <p>El impacto económico del béisbol en la República Dominicana es significativo y multifacético, generando empleo, inversión y oportunidades, aunque con desafíos importantes.</p>
+
+            <div class="stats">
+                <div class="stat-box">
+                    <span class="stat-number">~25%</span>
+                    <span class="stat-label">de jugadores extranjeros en MLB son dominicanos</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">1980s+</span>
+                    <span class="stat-label">Academias de MLB activas en la isla</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">Miles</span>
+                    <span class="stat-label">de empleos generados</span>
+                </div>
+            </div>
+
+            <h3>Oportunidades Económicas</h3>
+            <ul>
+                <li>Las academias de MLB han generado empleo e inversión desde los años 80</li>
+                <li>Sistema de reclutamiento global centrado en la República Dominicana</li>
+                <li>Una cuarta parte de los jugadores extranjeros en las Grandes Ligas son dominicanos</li>
+            </ul>
+
+            <h3>Desafíos y Tensiones</h3>
+            <p>Sin embargo, Ruiz, Van Raalte, France y Petitpas destacan que muchos jóvenes sienten una presión profunda al apostar su futuro casi exclusivamente al béisbol, lo que genera riesgos psicológicos y educativos.</p>
+
+            <div class="highlight">
+                <span class="emoji-label">⚠️</span><strong> Realidad Importante:</strong> Solo un pequeño porcentaje de los jóvenes firmados llega a las Grandes Ligas, creando un sistema desigual en el que la mayoría no logra estabilidad económica. Existe un sacrificio educativo significativo.
+            </div>
+
+            <h3>"El Sueño del Béisbol"</h3>
+            <p>A pesar de las tensiones, el béisbol sigue siendo una de las industrias más influyentes del país, ofreciendo a jóvenes una vía de movilidad social que de otra manera no tendrían disponible.</p>
+        </section>
+
+        <section id="global">
+            <h2>5. El Béisbol y las Relaciones Internacionales Globales</h2>
+            <p>Según Zimbalist, la República Dominicana funciona como "el corazón del sistema global de béisbol", debido a la enorme concentración de academias y talento.</p>
+
+            <h3>Sistema de Intercambio Global</h3>
+            <p>La relación entre MLB y el país crea un intercambio dinámico:</p>
+            <ul>
+                <li><strong>Para MLB:</strong> Obtienen talento joven de clase mundial</li>
+                <li><strong>Para la República Dominicana:</strong> Reciben oportunidades económicas e inversión</li>
+            </ul>
+
+            <h3>Perspectivas Críticas</h3>
+            <p>Klein y Longley argumentan que existen estructuras de desigualdad:</p>
+            <ul>
+                <li>Contratos iniciales bajos para jóvenes talentos</li>
+                <li>Escaso apoyo académico y desarrollo integral</li>
+                <li>Procesos competitivos que ponen a los jóvenes en situaciones vulnerables</li>
+            </ul>
+
+            <h3>Éxito y Proyección Global</h3>
+            <div class="highlight">
+                <span class="emoji-label">🏆</span><strong> Victoria Histórica:</strong> El éxito dominicano en la victoria del Clásico Mundial de Béisbol en 2013 fortaleció la presencia global del país y su reputación como potencia deportiva.
+            </div>
+
+            <p>La República Dominicana no es solo un proveedor de talento; es un protagonista en el escenario global del béisbol, influyendo en políticas, compitiendo internacionalmente y demostrando su capacidad en la clase mundial.</p>
+
+            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/f5e988e1-922f-49a6-be0c-f693c5a532dc" alt="Aficionados dominicanos celebrando en el estadio durante evento internacional de béisbol" class="section-image">
+            <div class="image-caption">El orgullo dominicano en el escenario internacional del béisbol</div>
+        </section>
+
+        <section id="cultural">
+            <h2>6. El Béisbol como Expresión Cultural y Social</h2>
+            <p>El béisbol forma parte integral de la vida cotidiana dominicana. Burgos describe el deporte como un "lenguaje cultural compartido" que une a personas de todas las clases sociales y regiones del país.</p>
+
+            <h3>La Vida Cotidiana del Béisbol</h3>
+            <ul>
+                <li>En cada barrio se ven niños jugando en las calles</li>
+                <li>Peloteros retirados entrenan a nuevas generaciones</li>
+                <li>Familias completas asisten a juegos de la Liga Invernal</li>
+                <li>La forma vibrante de jugar refleja la personalidad cultural del país: rápida, intensa y expresiva</li>
+            </ul>
+
+            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/fd02f1a3-e981-4de4-96bc-94049bef65ef" alt="Niños jugando béisbol en un campo en la República Dominicana" class="section-image-centered">
+            <div class="image-caption">Niños dominicanos jugando el béisbol en los barrios del país</div>
+
+            <h3>Dimensión Artística y Social</h3>
+            <p>El béisbol aparece en:</p>
+            <ul>
+                <li><strong>Música:</strong> Canciones populares y artistas que celebran el deporte</li>
+                <li><strong>Cine:</strong> Películas y documentales sobre el béisbol dominicano</li>
+                <li><strong>Festivales:</strong> Celebraciones públicas centradas en el béisbol</li>
+                <li><strong>Vida Cotidiana:</strong> Conversaciones, rituales familiares y comunitarios</li>
+            </ul>
+
+            <div class="quote">
+                Es una experiencia social tanto como deportiva, un espacio donde se afirman valores comunitarios como la familia, la fe y la resiliencia.
+                <div class="quote-author">— Investigación del Proyecto</div>
+            </div>
+
+            <p>El béisbol es un "lenguaje universal" dominicano que trasciende barreras sociales y económicas, conectando al pueblo en un propósito común.</p>
+        </section>
+
+        <section id="conclusiones">
+            <h2>7. Conclusiones</h2>
+            <p>Después de analizar los orígenes, el valor histórico, el impacto económico y la presencia internacional del béisbol, queda claro que <strong>este deporte es un elemento esencial de la identidad dominicana</strong>.</p>
+
+            <h3>Hallazgos Principales</h3>
+            <ul>
+                <li><strong>Histórico:</strong> De una importación extranjera a un pilar de identidad nacional en menos de un siglo</li>
+                <li><strong>Cultural:</strong> Un "lenguaje compartido" que une al país a través de clases sociales</li>
+                <li><strong>Económico:</strong> Una industria influyente que genera oportunidades, aunque con desafíos importantes</li>
+                <li><strong>Global:</strong> República Dominicana es el corazón del sistema global de béisbol</li>
+            </ul>
+
+            <div class="highlight">
+                <span class="emoji-label">🎯</span><strong> Reflexión Final:</strong> El béisbol en la República Dominicana no es meramente un juego. Es una fuerza cultural que moldea vidas, conecta generaciones y representa el orgullo y la resiliencia del pueblo dominicano. Refleja sus sueños, desafíos y aspiraciones en un contexto histórico, económico y social complejo.
+            </div>
+
+            <p style="font-size: 1.1rem; font-weight: 500; color: var(--color-primary); margin-top: 2rem;">Más que un deporte, el béisbol es el corazón cultural de la República Dominicana.</p>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <h4>📚 Obras Citadas</h4>
+            <div class="references">
+                <ol>
+                    <li>Klein, Alan. <em>Dominican Baseball: New Pride, Old Prejudice.</em> Book.</li>
+                    <li>Ruck, Rob. <em>The Tropic of Baseball: Baseball in the Dominican Republic.</em> Book.</li>
+                    <li>Burgos, Adrian. "The Dominican National Pastime." <em>Current History,</em> vol. 123, no. 850, Feb. 2024, pp. 78–80.</li>
+                    <li>Klein, Alan M. "Culture, Politics, and Baseball in the Dominican Republic." <em>Latin American Perspectives,</em> vol. 22, no. 3, Summer 1995, pp. 111–30.</li>
+                    <li>Lihosit, Ezequiel Kitsu. <em>Major League Baseball's Latin American Connection: Salaries, Scouting, and Globalization.</em> M.A. thesis, University of San Diego, 2016.</li>
+                    <li>Ruiz, Leonardo, et al. "Sueños de Béisbol: Hopes, Experiences, and Expectations of Professional Baseball Players in the Dominican Republic." <em>Journal of Clinical Sport Psychology,</em> vol. 14, no. 1, Mar. 2020, pp. 1–19.</li>
+                    <li>Weeks, Jonathan. <em>Latino Stars in Major League Baseball: From Bobby Abreu to Carlos Zambrano.</em> Rowman &amp; Littlefield Publishers, 2017.</li>
+                    <li>Zimbalist, Andrew. "Baseball and Society in the Caribbean." <em>New West Indian Guide,</em> vol. 68, no. 1–2, Jan. 1994, pp. 101–04.</li>
+                </ol>
+            </div>
+            <hr style="margin: 1.5rem 0; opacity: 0.3;">
+            <p style="margin-top: 1.5rem; opacity: 0.9;"><strong>Proyecto Final - SPAN 355-002 | Brigham Young University</strong></p>
+            <p style="opacity: 0.8; font-size: 0.9rem;">Logan Payne, Ethan Cluff, Ethan Hilton, Kelson Walker, Trenton Martell</p>
+        </div>
+    </footer>
+</body>
+</html>
